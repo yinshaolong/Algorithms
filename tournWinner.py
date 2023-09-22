@@ -1,25 +1,23 @@
-def tournWinner(competition, results):
+def tournWinner(competitions, results):
     best_team = ""
     teamScores = {best_team: 0}
     homeOrAway = -1
     for i, result in enumerate(results):
-        if result == 0:
-            homeOrAway = 0
+        homeOrAway = abs(result - 1)
+        if competitions[i][homeOrAway] in teamScores:
+            teamScores[competitions[i][homeOrAway]] += 3
         else:
-            homeOrAway = 1
-        if competition[i][homeOrAway] in teamScores:
-            teamScores[competition[i][homeOrAway]] += 3
-        else:
-            teamScores[competition[i][homeOrAway]] = 3
-        if teamScores[competition[i][homeOrAway]] > teamScores[best_team]:
-            best_team = competition[i][homeOrAway]
+            teamScores[competitions[i][homeOrAway]] = 3
+        if teamScores[competitions[i][homeOrAway]] > teamScores[best_team]:
+            best_team = competitions[i][homeOrAway]
     return best_team
 
-competition = [
+competitions = [
     ["HTML", "CSS"],
     ["CSS", "Python"],
      ["Python", "Java"]
 ]
-results = [0, 1, 0]
+results = [0, 0, 1]
 
-print(tournWinner(competition, results))
+
+print(tournWinner(competitions, results))
